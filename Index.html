@@ -1,0 +1,34 @@
+<h2>1. Cek Email Bocor</h2>
+<input id="email" placeholder="Masukan email lu">
+<button onclick="cekBocor()">CEK</button>
+<p id="hasilBocor"></p>
+
+<script>
+async function cekBocor() {
+  let email = document.getElementById('email').value;
+  document.getElementById('hasilBocor').innerText = 'Ngecek...';
+  // Pake API gratisan. Dia cuma bilang "ketemu" apa "aman"
+  let res = await fetch(`https://api.proxynova.com/comb?query=${email}`);
+  let data = await res.json();
+  if(data.count > 0) {
+    document.getElementById('hasilBocor').innerText = `⚠️ Email ini ketemu di ${data.count} data leak`;
+  } else {
+    document.getElementById('hasilBocor').innerText = `✅ Aman, belum ketemu bocor`;
+  }
+}
+</script><h2>2.  Phishing</h2>
+<p style="color:red;">[CONTOH] Halaman Login IG/google asli</p>
+<input placeholder="Username"><br>
+<input type="password" placeholder="Password"><br>
+<button onclick="alert('KETAHUAN! Ini website palsu. Jangan pernah masukin password di link aneh ya!')">Login</button><h2>3. Cek Port Website Ini</h2>
+<button onclick="cekPort()">CEK HTTPS</button>
+<p id="hasilPort"></p>
+<script>
+function cekPort() {
+  if(location.protocol === 'https:') {
+    document.getElementById('hasilPort').innerText = '✅ Website ini pake HTTPS Port 443 Aman';
+  } else {
+    document.getElementById('hasilPort').innerText = '⚠️ Masih HTTP. Upload ke Github biar dapet HTTPS gratis';
+  }
+}
+</script>
